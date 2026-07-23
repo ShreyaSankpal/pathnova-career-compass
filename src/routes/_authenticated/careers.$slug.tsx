@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { AppNav } from "@/components/app-nav";
-import { CAREER_BY_SLUG } from "@/lib/careers";
+import { CAREER_BY_SLUG, type Career } from "@/lib/careers";
 import { supabase } from "@/integrations/supabase/client";
 import { generateCareerFeedback } from "@/lib/ai.functions";
 
@@ -125,7 +125,7 @@ function CareerPage() {
   );
 }
 
-function Overview({ career, onStart }: { career: ReturnType<typeof Route.useLoaderData>["career"]; onStart: () => void }) {
+function Overview({ career, onStart }: { career: Career; onStart: () => void }) {
   return (
     <div className="mt-10 space-y-8">
       <div className="grid gap-4 md:grid-cols-3">
@@ -170,7 +170,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function SimStep({ career, decisionIdx, busy, onPick }: {
-  career: ReturnType<typeof Route.useLoaderData>["career"];
+  career: Career;
   decisionIdx: number;
   busy: boolean;
   onPick: (opt: { value: string; label: string }) => void;
