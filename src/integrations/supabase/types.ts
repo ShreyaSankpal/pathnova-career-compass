@@ -14,16 +14,232 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      assessment_responses: {
+        Row: {
+          assessment_id: string
+          created_at: string
+          id: string
+          question_id: string
+          section: string
+          user_id: string
+          value_num: number | null
+          value_text: string | null
+        }
+        Insert: {
+          assessment_id: string
+          created_at?: string
+          id?: string
+          question_id: string
+          section: string
+          user_id: string
+          value_num?: number | null
+          value_text?: string | null
+        }
+        Update: {
+          assessment_id?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+          section?: string
+          user_id?: string
+          value_num?: number | null
+          value_text?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_responses_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessments: {
+        Row: {
+          completed_at: string | null
+          id: string
+          started_at: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          started_at?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          started_at?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      career_experience_progress: {
+        Row: {
+          career_slug: string
+          completed_at: string | null
+          created_at: string
+          decisions: Json
+          feedback: string | null
+          id: string
+          score: number | null
+          user_id: string
+        }
+        Insert: {
+          career_slug: string
+          completed_at?: string | null
+          created_at?: string
+          decisions?: Json
+          feedback?: string | null
+          id?: string
+          score?: number | null
+          user_id: string
+        }
+        Update: {
+          career_slug?: string
+          completed_at?: string | null
+          created_at?: string
+          decisions?: Json
+          feedback?: string | null
+          id?: string
+          score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number | null
+          created_at: string
+          current_class_or_year: string | null
+          education_level: string | null
+          full_name: string | null
+          id: string
+          interests: string[] | null
+          onboarded: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string
+          current_class_or_year?: string | null
+          education_level?: string | null
+          full_name?: string | null
+          id?: string
+          interests?: string[] | null
+          onboarded?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: number | null
+          created_at?: string
+          current_class_or_year?: string | null
+          education_level?: string | null
+          full_name?: string | null
+          id?: string
+          interests?: string[] | null
+          onboarded?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          assessment_id: string
+          data: Json
+          generated_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          assessment_id: string
+          data: Json
+          generated_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          assessment_id?: string
+          data?: Json
+          generated_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_careers: {
+        Row: {
+          career_slug: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          career_slug: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          career_slug?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +366,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "admin"],
+    },
   },
 } as const
