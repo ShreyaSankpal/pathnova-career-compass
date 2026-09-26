@@ -389,9 +389,8 @@ PathNova is being developed as a scalable career discovery platform rather than 
 
 Computer Engineering Student
 
-Interested in:
 
-`Full-Stack Development` • `AI/ML` • `DSA` • `Product Development`
+
 
 ---
 
